@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quinto_assignment4/helpers/firebase_helper.dart';
+import 'package:quinto_assignment4/models/user.dart';
 
 class RegisterEstablishmentScreen extends StatefulWidget {
   const RegisterEstablishmentScreen({super.key});
@@ -18,6 +20,19 @@ class _RegisterClientScreen extends State<RegisterEstablishmentScreen> {
   final _confirmPasswordController = TextEditingController();
 
   var _showPassword = false;
+
+  void registerUser() {
+    if (!_formKey.currentState!.validate()) return;
+
+    final user = BusinessUser(
+      firstName: _firstNameController.text,
+      lastName: _lastNameController.text,
+      email: _emailController.text,
+      businessName: _businessNameController.text,
+    );
+
+    FireHelper.registerBusinessUser(context, user, _passwordController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +149,7 @@ class _RegisterClientScreen extends State<RegisterEstablishmentScreen> {
                 ),
                 gap,
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: registerUser,
                   child: const Text('Register'),
                 ),
               ],

@@ -5,10 +5,10 @@ import 'package:quinto_assignment4/screens/dashboard_screen.dart';
 
 import 'package:quinto_assignment4/screens/home_screen.dart';
 import 'package:quinto_assignment4/screens/login_screen.dart';
-import 'package:quinto_assignment4/screens/register_client_screen.dart';
-import 'package:quinto_assignment4/screens/register_establishment_screen.dart';
+import 'package:quinto_assignment4/screens/registration/register_client_screen.dart';
+import 'package:quinto_assignment4/screens/registration/register_establishment_screen.dart';
 
-final router = GoRouter(
+var router = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(
@@ -25,7 +25,8 @@ final router = GoRouter(
             );
           }
           if (snapshot.hasData) {
-            final String uid = snapshot.data != null ? snapshot.data!.uid : '';
+            final String uid = snapshot.data!.uid;
+
             return Dashboard(userID: uid);
           }
           return const HomeScreen();

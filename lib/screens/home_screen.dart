@@ -27,14 +27,24 @@ class HomeScreen extends StatelessWidget {
               child: const Text('Log in'),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
+            TextButton(
               onPressed: () => _register(context, 'client'),
-              child: const Text('Register as client'),
+              child: const Text(
+                'Register as client',
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                ),
+              ),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
+            TextButton(
               onPressed: () => _register(context, 'establishment'),
-              child: const Text('Register as establishment'),
+              child: const Text(
+                'Register as establishment',
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                ),
+              ),
             ),
           ],
         ),

@@ -155,8 +155,8 @@ class _RegisterClientScreen extends State<RegisterClientScreen> {
         firstName: _firstNameController.text,
         lastName: _lastNameController.text,
         email: _emailController.text,
-        password: _passwordController.text,
       ),
+      _passwordController.text,
     );
   }
 }
