@@ -52,20 +52,20 @@ class EstablishmentScreen extends StatelessWidget {
       barrierDismissible: false,
     );
 
-    final clientDoc =
-        await FirebaseFirestore.instance.collection('users').doc(qr).get();
-    final clientData = clientDoc.data()!;
+    // final clientDoc =
+    //     await FirebaseFirestore.instance.collection('users').doc(qr).get();
+    // final clientData = clientDoc.data()!;
 
-    final clientName = '${clientData['firstName']} ${clientData['lastName']}';
+    // final clientName = '${clientData['firstName']} ${clientData['lastName']}';
 
     try {
       await client.add({
-        'establishment': user.businessName,
+        'establishment': FirebaseAuth.instance.currentUser!.uid,
         'timestamp': DateTime.now().toString(),
       });
 
       await establishment.add({
-        'client': clientName,
+        'client': qr,
         'timestamp': DateTime.now().toString(),
       });
 

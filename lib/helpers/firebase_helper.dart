@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:quinto_assignment4/models/user.dart';
 
@@ -180,7 +179,22 @@ class FireHelper {
         .collection('users/$currentUser/logs')
         .get();
 
-    final logs = dataLog.docs.map((e) => e.data()).toList();
+    final logCollection = dataLog.docs.map((e) => e.data()).toList();
+
+    final List<Map<String, dynamic>> logs = [];
+
+    for (final log in logCollection) {
+      final establishmentData = await _firestore
+          .collection(collectionPath)
+          .doc(log['establishment'].toString())
+          .get();
+
+      final establishmentName = establishmentData.get('businessName');
+      logs.add({
+        'establishment': establishmentName,
+        'timestamp': log['timestamp'],
+      });
+    }
 
     return logs;
   }
@@ -192,7 +206,23 @@ class FireHelper {
         .collection('users/$currentUser/logs')
         .get();
 
-    final logs = dataLog.docs.map((e) => e.data()).toList();
+    final logCollection = dataLog.docs.map((e) => e.data()).toList();
+
+    final List<Map<String, dynamic>> logs = [];
+
+    for (final log in logCollection) {
+      final clientData = await _firestore
+          .collection(collectionPath)
+          .doc(log['client'].toString())
+          .get();
+
+      final clientName =
+          '${clientData.get('firstName')} ${clientData.get('lastName')}';
+      logs.add({
+        'client': clientName,
+        'timestamp': log['timestamp'],
+      });
+    }
 
     return logs;
   }
